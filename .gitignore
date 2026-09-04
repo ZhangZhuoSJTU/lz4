@@ -62,3 +62,11 @@ cmake_install_test/
 # generated Windows resource files
 lib/*.rc
 programs/*.rc
+
+# ProgramBench course-competition artifacts
+executable
+.programbench/venv/
+.programbench/gitconfig
+.programbench/home/
+.programbench/tests/
+.programbench/run/
