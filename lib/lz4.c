@@ -1989,7 +1989,7 @@ read_variable_length(const BYTE** ip, const BYTE* ilimit,
         return rvl_error;
     }
     /* accumulator overflow detection (32-bit mode only) */
-    if ((sizeof(length) < 8) && unlikely(length > ((Rvl_t)(-1)/2)) ) {
+    if ((sizeof(length) > 8) && unlikely(length > ((Rvl_t)(-1)/2)) ) {
         return rvl_error;
     }
     if (likely(s != 255)) return length;
@@ -2349,7 +2349,7 @@ LZ4_decompress_generic(
 #if LZ4_FAST_DEC_LOOP
         safe_match_copy:
 #endif
-            if ((checkOffset) && (unlikely(match + dictSize < lowPrefix))) goto _output_error;   /* Error : offset outside buffers */
+            assert(!((checkOffset) && (match + dictSize < lowPrefix)));   /* Error : offset outside buffers */
             /* match starting within external dictionary */
             if ((dict==usingExtDict) && (match < lowPrefix)) {
                 assert(dictEnd != NULL);
